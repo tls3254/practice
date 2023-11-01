@@ -10,6 +10,9 @@ const output ={
     login :(req, res) =>{ //로그인
         res.render("home/login");
     },
+    register : (req, res)=>{
+        res.render("home/register")
+    }
 };
 
 
