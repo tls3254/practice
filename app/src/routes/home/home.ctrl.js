@@ -21,6 +21,11 @@ const process = {
         const user = new User(req.body); //인스턴스를 할떄 req.body를 넣어서 함
         const response = user.login();
         return res.json(response);
+    },
+    register: (req,res) => {
+        const user = new User(req.body); //인스턴스를 할떄 req.body를 넣어서 함
+        const response = user.register();
+        return res.json(response);
     }
 };
 
