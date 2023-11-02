@@ -22,10 +22,14 @@ class User{
         return{ success: false, msg: "존재하지 않는 아이디 입니다."};
     }
 
-    register(){
+    async register(){
+        try{
         const client =this.body;
-        const response = UserStorage.save(client);
+        const response = await UserStorage.save(client);
         return response;
+        }catch(err){
+            return { success: false , msg: err };
+        }
     }
 }
 

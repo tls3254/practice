@@ -22,9 +22,9 @@ const process = {
         const response = await user.login();
         return res.json(response);
     },
-    register: (req,res) => {
+    register: async (req,res) => {
         const user = new User(req.body); //인스턴스를 할떄 req.body를 넣어서 함
-        const response = user.register();
+        const response = await user.register();
         return res.json(response);
     }
 };
