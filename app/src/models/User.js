@@ -35,6 +35,19 @@ class User{
             return { success: false , msg: err };
         }
     }
+
+    //아이디 중복 체크
+    async idcheck(){
+        const client =this.body;
+        try{
+        const { id } = await UserStorage.getUsersInfo(client.id); //클라이언트가 입력한 아이디 값
+            if(id === client.id){
+                return { success: false};
+            }
+        }catch(err){
+            return { success: true };
+        }
+    }
 }
 
 module.exports = User;

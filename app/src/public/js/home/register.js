@@ -1,12 +1,14 @@
 "use strict";
 
 const id = document.querySelector("#id"),  //질의 선택자
+    idcheckBtn = document.querySelector("#a"),
     name = document.querySelector("#name"),
     psword = document.querySelector("#psword"),
     confirmPsword = document.querySelector("#confirm-psword"),
     registerBtn = document.querySelector("#button");
 
 registerBtn.addEventListener("click", register);
+idcheckBtn.addEventListener("click", idcheck);
 
 function register(){
     if(!id.value){
@@ -40,4 +42,29 @@ function register(){
         console.error(new Error("회원가입 중 에러 발생"));
     });
     
+}
+
+function idcheck(){
+    const req ={
+        id : id.value,
+    }
+
+    fetch("/idcheck", {
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        if(res.success) {
+            console.log("아이디가 사용가능합니다");
+        }else{
+            console.log("아이디가 사용가능하지 않습니다");
+        }
+    }).catch((err) => {
+        console.error(new Error("아이디 중복"));
+    });
+
 }
