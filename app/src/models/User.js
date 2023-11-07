@@ -7,7 +7,7 @@ class User{
     constructor(body){
         this.body =body; //body는 해당하는 데이터를 들고 다님
     }
-
+    //로그인
     async login() {
         const client =this.body;
         try{
@@ -25,10 +25,10 @@ class User{
             return{success:false, msg: err};
         };
     }
-
+    //회원가입
     async register(){
-        try{
         const client =this.body;
+        try{
         const response = await UserStorage.save(client);
         return response;
         }catch(err){
@@ -41,11 +41,36 @@ class User{
         const client =this.body;
         try{
         const { id } = await UserStorage.getUsersInfo(client.id); //클라이언트가 입력한 아이디 값
-            if(id === client.id){
-                return { success: false};
+            if(id === client.id || id === null){
+                return { success: false };
             }
         }catch(err){
             return { success: true };
+        }
+    }
+    //id 찾기
+    async id_found(){
+        const client =this.body;
+        try{
+        const { mail } = await UserStorage.mail_found(client.mail);
+        const { name } = await UserStorage.name_found(client.name);
+        if(name === client.name && mail === client.mail){
+            return { success: true };
+        }
+        }catch(err){
+            return { success: false };
+        }
+    }
+    async password_found(){
+        const client =this.body;
+        try{
+        const { mail } = await UserStorage.mail_found(client.mail);
+        const { id } = await UserStorage.getUsersInfo(client.id);
+        if(id === client.id && mail === client.mail){
+            return { success: true };
+        }
+        }catch(err){
+            return { success: false };
         }
     }
 }

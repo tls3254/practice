@@ -11,7 +11,13 @@ const output ={
     },
     register : (req, res)=>{//회원가입
         res.render("home/register")
-    }
+    },
+    id_found : (req, res)=>{//아이디 찾기
+        res.render("home/id_found")
+    },
+    password_found : (req, res)=>{//아이디 찾기
+        res.render("home/password_found")
+    },
 };
 
 const process = {
@@ -32,7 +38,18 @@ const process = {
         const user = new User(req.body); //인스턴스를 할떄 req.body를 넣어서 함
         const response = await user.idcheck();
         return res.json(response);
-    }
+    },
+    //id찾기
+    id_found: async (req,res) => {
+        const user = new User(req.body); //인스턴스를 할떄 req.body를 넣어서 함
+        const response = await user.id_found();
+        return res.json(response);
+    },
+    password_found: async (req,res) => {
+        const user = new User(req.body); //인스턴스를 할떄 req.body를 넣어서 함
+        const response = await user.password_found();
+        return res.json(response);
+    },
 };
 
 module.exports = {
